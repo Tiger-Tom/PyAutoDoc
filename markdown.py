@@ -7,7 +7,7 @@ from inspect import cleandoc
 #</Imports
 
 #> Header >/
-def preprocess(text: str):
+def preprocess(text: str) -> str:
     '''
         Cleans text to prepare it to be converted to markdown
             Currently just runs inspect.cleandoc(text)
@@ -15,7 +15,7 @@ def preprocess(text: str):
     return cleandoc(text)
 
 # Headers
-def header(line: str, level: int = 0):
+def header(line: str, level: int = 0) -> str:
     '''
         Generates a markdown header from a preprocessed line
         Level of header is equal to the `level` variable, for example:
@@ -27,7 +27,7 @@ def header(line: str, level: int = 0):
     return f'#{"#"*level} {line}'
 _header_link_remove = re.compile(r'[^\w\-]')
 def header_link(line: str, label: str | None = None, *,
-                process: typing.Callable[[str], str] = lambda t: _header_link_remove.sub('', t.replace(' ', '-')).lower(), bare: bool = False):
+                process: typing.Callable[[str], str] = lambda t: _header_link_remove.sub('', t.replace(' ', '-')).lower(), bare: bool = False) -> str:
     '''
         Returns an anchor ("#") link to a header (or a preprocessed line that would become a header)
             The text first has leading '#' and ' ' removed if it starts with a '#'
@@ -46,7 +46,7 @@ def header_link(line: str, label: str | None = None, *,
 header.link = header # OO-like alias
 
 # Links
-def link(target: str, label: str | None = None):
+def link(target: str, label: str | None = None) -> str:
     '''Generates a link. If label is not provided, it is set to target'''
     assert '\n' not in target, 'Target should not have multiple lines!'
     assert '\n' not in label, 'Label should not have multiple lines!'
