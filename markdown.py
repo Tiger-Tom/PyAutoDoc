@@ -51,3 +51,13 @@ def link(target: str, label: str | None = None) -> str:
     assert '\n' not in target, 'Target should not have multiple lines!'
     assert '\n' not in label, 'Label should not have multiple lines!'
     return f'[{target if label is None else label}]({target})'
+
+# Text-type formatting
+## Code
+def code_inline(line: str) -> str:
+    '''Generates in-line code'''
+    assert '\n' not in line, 'Inline-code should not have multiple lines!'
+    return f'`{line.replace("\\", "\\\\").replace("`", "\\`")'
+def code_block(block: str, language: str = 'python') -> str:
+    '''Generates a code-block, using syntax highlighting (if available) specified by "language" (default: 'python')'''
+    return f'```{language.replace("\\", "\\\\").replace("`", "\\`")}\n\n```'''
